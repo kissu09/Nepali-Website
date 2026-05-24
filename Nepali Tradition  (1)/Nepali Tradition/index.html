@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nepalipan (नेपालीपन) — An immersive digital sanctuary celebrating the rich traditions, majestic landmarks, sacred sounds, and colorful festivals of Nepal.">
+    <title>नेपालीपन | Nepalipan — Immersive Nepali Heritage Experience</title>
+    
+    <!-- Google Fonts for Bilingual Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Yatra+One&family=Rozha+One&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Custom Glowing Cursor -->
+    <div class="custom-cursor" id="customCursor"></div>
+    <div class="custom-cursor-follower" id="customCursorFollower"></div>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress-bar" id="scrollProgress"></div>
+    </div>
+
+    <!-- SVG Clip-path Mask for Newari Window Cutout (Hole center width: ~21%, height: ~44%) -->
+    <svg width="0" height="0" style="position: absolute;">
+        <defs>
+            <clipPath id="windowHoleClip" clipPathUnits="objectBoundingBox">
+                <path d="M 0,0 L 1,0 L 1,1 L 0,1 Z M 0.395,0.365 L 0.605,0.365 L 0.605,0.805 L 0.395,0.805 Z" fill-rule="evenodd" />
+            </clipPath>
+        </defs>
+    </svg>
+
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="#" class="logo-area">
+                <span class="logo-symbol">ॐ</span>
+                <div class="logo-text">
+                    <span class="logo-nepali">नेपालीपन</span>
+                    <span class="logo-english">NEPALIPAN</span>
+                </div>
+            </a>
+            
+            <nav class="nav-menu" id="navMenu">
+                <a href="#heritage" class="nav-link"><span class="nav-num">०१</span> सम्पदा <span class="nav-sub">Heritage</span></a>
+                <a href="#sanctum" class="nav-link"><span class="nav-num">०२</span> ध्वनि <span class="nav-sub">Sounds</span></a>
+                <a href="#festivals" class="nav-link"><span class="nav-num">०३</span> चाडपर्व <span class="nav-sub">Festivals</span></a>
+                <a href="#crafts" class="nav-link"><span class="nav-num">०४</span> हस्तकला <span class="nav-sub">Crafts</span></a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="sound-control-btn" id="ambientToggle" aria-label="Play meditative ambient sound" title="Play Ambient Music">
+                    <span class="sound-icon">🔈</span>
+                    <span class="sound-label">ध्वनि बन्द (Muted)</span>
+                </button>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Zoom Intro Tunnel Section -->
+    <div class="intro-page-wrapper">
+        <div class="intro-pin-container">
+            <!-- Hero content lies directly behind the zooming window -->
+            <section class="hero-section">
+                <div class="hero-overlay"></div>
+                <div class="hero-bg-media" id="heroBgMedia">
+                    <video autoplay muted loop playsinline class="hero-bg-video">
+                        <source src="videomp_.mp4" type="video/mp4">
+                    </video>
+                </div>
+                
+                <div class="hero-content" id="heroIntroContent">
+                    <div class="dhaka-badge-container">
+                        <span class="dhaka-badge">हाम्रो गौरव, हाम्रो पहिचान</span>
+                    </div>
+                    <h1 class="hero-title animate-title">
+                        <span class="title-top">स्वर्गभन्दा प्यारो</span>
+                        <span class="title-main">नेपाल</span>
+                        <span class="title-bottom">Heritage & Tradition</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Step inside an immersive digital sanctuary. Feel the resonance of sacred temple bells, trace the geometries of handwoven Dhaka, and experience the warmth of glowing diyos and floating kites.
+                    </p>
+                    <div class="hero-cta-group">
+                        <a href="#sanctum" class="btn btn-primary">
+                            <span class="btn-text">ध्वनि अनुभव गर्नुहोस् (Experience Sound)</span>
+                            <span class="btn-icon">⚡</span>
+                        </a>
+                        <a href="#heritage" class="btn btn-secondary">
+                            <span class="btn-text">सम्पदा अन्वेषण (Explore Heritage)</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-scroll-indicator">
+                    <span class="scroll-text">तल स्क्रोल गर्नुहोस् (Scroll Down)</span>
+                    <div class="scroll-arrow-box">
+                        <svg class="scroll-arrow" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="currentColor" d="M12 16L6 10H18L12 16Z" />
+                        </svg>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Window Zoom Overlay -->
+            <div class="window-frame-overlay" id="windowFrameOverlay">
+                <div class="masked-window-image"></div>
+                <!-- Minimal center landing prompt -->
+                <div class="window-intro-prompt" id="windowIntroPrompt">
+                    <span class="prompt-key">नेपालीपन</span>
+                    <span class="prompt-action">स्क्रोल गर्नुहोस् (Scroll to Step Inside)</span>
+                    <div class="scroll-chevron">↓</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+
+        <!-- Decorative Dhaka Fabric Divider -->
+        <div class="dhaka-divider"></div>
+
+        <!-- Section 1: Heritage & Majestic Landmarks -->
+        <section id="heritage" class="section heritage-section">
+            <div class="section-container">
+                <div class="section-header text-center">
+                    <span class="section-tag">महान् सम्पदाहरू</span>
+                    <h2 class="section-title">ऐतिहासिक र प्राकृतिक धरोहर <span class="title-en">Majestic Pillars of Heritage</span></h2>
+                    <p class="section-desc">Nepal's heritage is carved in the stone of ancient temples and elevated to the heavens by the grandest peaks on Earth.</p>
+                </div>
+
+                <div class="heritage-grid">
+                    <!-- Card 1: Sagarmatha -->
+                    <div class="heritage-card" data-index="1">
+                        <div class="card-bg-glow"></div>
+                        <div class="card-image-box">
+                            <div class="card-overlay"></div>
+                            <img src="sagarmatha.png" id="imgSagarmatha" alt="Sagarmatha - Mt. Everest" class="card-img-placeholder">
+                            <div class="card-badge">शिखर (Peak)</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">सगरमाथा <span class="card-title-en">Mt. Everest</span></h3>
+                            <p class="card-text">
+                                Standing at the pinnacle of the world at 8,848.86 meters, Sagarmatha ("Forehead of the Sky") is a sacred monument of pure endurance, representing the ultimate crown of the Himalayas.
+                            </p>
+                            <button class="btn-card-details" data-target="everest">
+                                थप जानकारी (Learn More) <span class="arrow">&rarr;</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Swayambhunath -->
+                    <div class="heritage-card" data-index="2">
+                        <div class="card-bg-glow"></div>
+                        <div class="card-image-box">
+                            <div class="card-overlay"></div>
+                            <img src="swayambhunath.png" id="imgSwayambhu" alt="Swayambhunath Stupa" class="card-img-placeholder">
+                            <div class="card-badge">सद्भाव (Harmony)</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">स्वयम्भूनाथ <span class="card-title-en">Swayambhunath</span></h3>
+                            <p class="card-text">
+                                One of Nepal's oldest religious structures, the "Monkey Temple" stands tall with the all-seeing eyes of the Buddha looking out over the Kathmandu Valley, symbolizing wisdom and light.
+                            </p>
+                            <button class="btn-card-details" data-target="swayambhu">
+                                थप जानकारी (Learn More) <span class="arrow">&rarr;</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Nyatapola -->
+                    <div class="heritage-card" data-index="3">
+                        <div class="card-bg-glow"></div>
+                        <div class="card-image-box">
+                            <div class="card-overlay"></div>
+                            <img src="nyatapola.png" id="imgNyatapola" alt="Nyatapola Temple" class="card-img-placeholder">
+                            <div class="card-badge">हस्तकला (Craft)</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">न्यातपोल मन्दिर <span class="card-title-en">Nyatapola Temple</span></h3>
+                            <p class="card-text">
+                                Built in 1702, this five-story pagoda in Bhaktapur is an engineering and architectural marvel that has withstood multiple massive earthquakes, a testament to Newari craftsmanship.
+                            </p>
+                            <button class="btn-card-details" data-target="nyatapola">
+                                थप जानकारी (Learn More) <span class="arrow">&rarr;</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Pashupatinath -->
+                    <div class="heritage-card" data-index="4">
+                        <div class="card-bg-glow"></div>
+                        <div class="card-image-box">
+                            <div class="card-overlay"></div>
+                            <img src="pashupatinath.png" id="imgPashupati" alt="Pashupatinath Temple" class="card-img-placeholder">
+                            <div class="card-badge">अध्यात्म (Spirit)</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">पशुपतिनाथ <span class="card-title-en">Pashupatinath</span></h3>
+                            <p class="card-text">
+                                Situated on the banks of the sacred Bagmati River, this sprawling temple complex serves as the spiritual heart of Hinduism in Nepal, teeming with holy sadhus, prayers, and deep devotion.
+                            </p>
+                            <button class="btn-card-details" data-target="pashupati">
+                                थप जानकारी (Learn More) <span class="arrow">&rarr;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Cultural Info Modal overlay (Dynamic) -->
+            <div class="cultural-modal" id="culturalModal">
+                <div class="modal-backdrop"></div>
+                <div class="modal-body">
+                    <button class="modal-close" id="modalCloseBtn" aria-label="Close details">&times;</button>
+                    <div class="modal-dhaka-top"></div>
+                    <div class="modal-content-area" id="modalContentArea">
+                        <!-- Filled dynamically with JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Decorative Dhaka Fabric Divider -->
+        <div class="dhaka-divider"></div>
+
+        <!-- Section 2: The Sound Sanctum (Interactive Audio & Web Audio API) -->
+        <section id="sanctum" class="section sanctum-section">
+            <div class="section-container">
+                <div class="section-header text-center">
+                    <span class="section-tag">पवित्र ध्वनिहरू</span>
+                    <h2 class="section-title">देव-ध्वनि र ध्यान साधना <span class="title-en">The Sacred Sound Sanctum</span></h2>
+                    <p class="section-desc">Experience traditional Nepalese meditation. Click, tap, and interact with the synthesized sound of custom-modeled bronze instruments.</p>
+                </div>
+
+                <div class="sanctum-interactive-grid">
+                    <!-- Card 1: Singing Bowl Simulator -->
+                    <div class="sanctum-card sound-panel-bowl">
+                        <div class="sanctum-card-header">
+                            <span class="badge">संश्लेषक (Synthesizer)</span>
+                            <h3>ध्वनि कचौरा <span class="card-title-sub">Tibetan Singing Bowl</span></h3>
+                            <p>Drag the mallet in a circular pattern around the rim of the bowl to feel its deep resonance.</p>
+                        </div>
+                        
+                        <div class="bowl-workspace" id="bowlWorkspace">
+                            <div class="bowl-instruction-overlay" id="bowlOverlay">
+                                <div class="overlay-icon">🌀</div>
+                                <p>गोलाकार घुमाउनुहोस् (Drag Mallet in Circles to play)</p>
+                            </div>
+                            
+                            <!-- Vector Singing Bowl -->
+                            <svg class="vector-singing-bowl" id="vectorSingingBowl" viewBox="0 0 300 300">
+                                <defs>
+                                    <radialGradient id="bowlBronze" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+                                        <stop offset="0%" stop-color="#fdf1c2" />
+                                        <stop offset="50%" stop-color="#d4af37" />
+                                        <stop offset="85%" stop-color="#8a6f27" />
+                                        <stop offset="100%" stop-color="#4e3b0b" />
+                                    </radialGradient>
+                                    <linearGradient id="malletWood" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#8B5A2B" />
+                                        <stop offset="40%" stop-color="#cd853f" />
+                                        <stop offset="100%" stop-color="#3e2723" />
+                                    </linearGradient>
+                                    <filter id="glowEffect" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="8" result="blur" />
+                                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                    </filter>
+                                </defs>
+                                
+                                <!-- Outer Aura Ripple (Animated dynamically) -->
+                                <circle cx="150" cy="150" r="130" class="bowl-aura-circle" id="bowlAura" fill="none" stroke="#e5a93b" stroke-width="2" opacity="0" filter="url(#glowEffect)" />
+                                
+                                <!-- Main Bowl Base -->
+                                <circle cx="150" cy="150" r="110" fill="url(#bowlBronze)" stroke="#4e3b0b" stroke-width="4" filter="drop-shadow(0px 8px 12px rgba(0,0,0,0.5))" />
+                                
+                                <!-- Concentric Detailed Carvings -->
+                                <circle cx="150" cy="150" r="95" fill="none" stroke="#684f13" stroke-width="1.5" stroke-dasharray="8 4" />
+                                <circle cx="150" cy="150" r="90" fill="none" stroke="#684f13" stroke-width="1" />
+                                
+                                <!-- Central Engraving (Yantra / Mandala shape) -->
+                                <path d="M 150,115 L 170,150 L 150,185 L 130,150 Z" fill="none" stroke="#684f13" stroke-width="1.5" />
+                                <path d="M 115,150 L 150,170 L 185,150 L 150,130 Z" fill="none" stroke="#684f13" stroke-width="1.5" />
+                                <circle cx="150" cy="150" r="12" fill="none" stroke="#684f13" stroke-width="2" />
+                                
+                                <!-- Bowl Inner Rim Edge -->
+                                <circle cx="150" cy="150" r="106" fill="none" stroke="#ffeaa7" stroke-width="2" opacity="0.6" />
+                                
+                                <!-- Mallet Wood Handle (Fictional, positioned dynamically via JS) -->
+                                <g id="bowlMallet" class="bowl-mallet">
+                                    <rect x="145" y="40" width="10" height="70" rx="4" fill="url(#malletWood)" filter="drop-shadow(2px 4px 5px rgba(0,0,0,0.4))" />
+                                    <!-- Red felt lining at the tip -->
+                                    <rect x="143" y="25" width="14" height="20" rx="3" fill="#c1121f" />
+                                </g>
+                            </svg>
+                        </div>
+                        
+                        <div class="synth-indicator">
+                            <span class="intensity-label">Resonance Power:</span>
+                            <div class="progress-track">
+                                <div class="progress-fill" id="bowlProgress"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Temple Bell Simulator -->
+                    <div class="sanctum-card sound-panel-bell">
+                        <div class="sanctum-card-header">
+                            <span class="badge">ध्वनि साधना (Sacred Tolling)</span>
+                            <h3>मन्दिरको घण्टी <span class="card-title-sub">Sacred Temple Bell</span></h3>
+                            <p>Click or tap the hanging bell to strike it. Watch the resonance wave spread and feel the meditative reverberation.</p>
+                        </div>
+
+                        <div class="bell-workspace" id="bellWorkspace">
+                            <!-- Ripple Canvas -->
+                            <canvas class="bell-canvas" id="bellCanvas"></canvas>
+                            
+                            <!-- Hanging Chain and Hook -->
+                            <div class="bell-hanger">
+                                <div class="brass-link"></div>
+                                <div class="brass-link"></div>
+                                <div class="brass-link"></div>
+                            </div>
+
+                            <!-- The Swinging Bell GRP -->
+                            <div class="bell-swing-container" id="bellSwingContainer">
+                                <svg class="vector-temple-bell" id="vectorTempleBell" viewBox="0 0 200 250">
+                                    <defs>
+                                        <linearGradient id="bellMetal" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#4e3b0b" />
+                                            <stop offset="15%" stop-color="#8a6f27" />
+                                            <stop offset="50%" stop-color="#fdf1c2" />
+                                            <stop offset="85%" stop-color="#8a6f27" />
+                                            <stop offset="100%" stop-color="#4e3b0b" />
+                                        </linearGradient>
+                                        <linearGradient id="bellClapper" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" stop-color="#8a6f27" />
+                                            <stop offset="100%" stop-color="#3e2723" />
+                                        </linearGradient>
+                                    </defs>
+                                    
+                                    <!-- Bell Hanger Loop -->
+                                    <circle cx="100" cy="25" r="12" fill="none" stroke="url(#bellMetal)" stroke-width="8" />
+                                    
+                                    <!-- Bell Crown Base -->
+                                    <path d="M 75,35 Q 100,28 125,35 L 120,50 L 80,50 Z" fill="url(#bellMetal)" />
+                                    
+                                    <!-- Bell Clapper / Clanger (Animated separately during hit) -->
+                                    <g id="bellClapperGroup" class="clapper-group">
+                                        <line x1="100" y1="120" x2="100" y2="185" stroke="url(#bellClapper)" stroke-width="6" />
+                                        <circle cx="100" cy="188" r="12" fill="url(#bellClapper)" />
+                                    </g>
+                                    
+                                    <!-- Bell Main Body (Elegant traditional flare) -->
+                                    <path d="M 80,50 
+                                             C 80,80 70,110 50,135 
+                                             Q 100,140 150,135 
+                                             C 130,110 120,80 120,50 
+                                             Z" fill="url(#bellMetal)" stroke="#3e2723" stroke-width="2" />
+                                             
+                                    <!-- Bell Rim Flare -->
+                                    <path d="M 50,135 C 45,145 35,160 30,165 Q 100,175 170,165 C 165,160 155,145 150,135 Z" fill="url(#bellMetal)" filter="drop-shadow(0px 5px 6px rgba(0,0,0,0.4))" />
+                                    
+                                    <!-- Dynamic Bell Engravings (Traditional lines) -->
+                                    <path d="M 68,90 Q 100,95 132,90" fill="none" stroke="#5d4814" stroke-width="2" />
+                                    <path d="M 60,110 Q 100,115 140,110" fill="none" stroke="#5d4814" stroke-width="1.5" />
+                                    <path d="M 45,140 Q 100,148 155,140" fill="none" stroke="#ffeaa7" stroke-width="1" opacity="0.5" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="synth-indicator text-center">
+                            <button class="btn btn-primary" id="strikeBellBtn">🔔 घण्टी बजाउनुहोस् (Strike Bell)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Decorative Dhaka Fabric Divider -->
+        <div class="dhaka-divider"></div>
+
+        <!-- Section 3: Seasonal Festivals & Interactive Rituals (चाडपर्व र संस्कार) -->
+        <section id="festivals" class="section festivals-section">
+            <div class="section-container">
+                <div class="section-header text-center">
+                    <span class="section-tag">चाडपर्व र संस्कृति</span>
+                    <h2 class="section-title">परम्परागत उत्सव र रीतिथिति <span class="title-en">Seasonal Festivals & Rituals</span></h2>
+                    <p class="section-desc">Immerse yourself directly in Nepal's biggest festivals. Interact with our digital mini-rituals celebrating light, sky, and colors.</p>
+                </div>
+
+                <!-- Interactive Segment Toggle -->
+                <div class="festival-toggle-container">
+                    <button class="fest-tab active" data-tab="tihar">
+                        <span class="tab-nep">तिहारको दियो</span>
+                        <span class="tab-en">Tihar Lights (Diyo)</span>
+                    </button>
+                    <button class="fest-tab" data-tab="dashain">
+                        <span class="tab-nep">दशैंको चङ्गा</span>
+                        <span class="tab-en">Dashain Kite (Changga)</span>
+                    </button>
+                </div>
+
+                <!-- Tab content 1: Tihar Diyo Grid -->
+                <div class="festival-tab-content active" id="tab-tihar">
+                    <div class="festival-focus-grid">
+                        <div class="fest-info-side">
+                            <span class="badge badge-accent">Autumn Festival of Lights</span>
+                            <h3>तिहार र यमपञ्चक <span class="info-title-en">Tihar — Lighting the Void</span></h3>
+                            <p>
+                                Tihar, the spectacular Festival of Lights, celebrates the bond between humans, animals, and brothers and sisters. Homes are decorated with elaborate floral patterns called *Rangoli* and lit with terracotta oil lamps called *Diyo* to welcome Goddess Laxmi (wealth and prosperity).
+                            </p>
+                            <div class="interactive-instruction-card">
+                                <span class="inst-icon">🕯️</span>
+                                <div class="inst-details">
+                                    <h4>अनुष्ठान सुरु गर्नुहोस् (Light the Diyos)</h4>
+                                    <p>Tap on the dark terracotta clay lamps to ignite their sacred flame and cast warm light over the floor.</p>
+                                </div>
+                            </div>
+                            <div class="fest-actions">
+                                <button class="btn btn-secondary" id="lightAllDiyos">सबै दियो बाल्नुहोस् (Light All)</button>
+                                <button class="btn btn-outline" id="extinguishDiyos">दियो निभाउनुहोस् (Reset)</button>
+                            </div>
+                        </div>
+
+                        <div class="fest-interactive-side diyo-ambient-bg">
+                            <!-- Dhaka frame border wrap -->
+                            <div class="dhaka-border-wrap">
+                                <div class="diyo-grid-container" id="diyoGrid">
+                                    <!-- Loop 6 Diyo lamps inside HTML -->
+                                    <div class="diyo-pot" id="diyo-1">
+                                        <svg class="vector-diyo" viewBox="0 0 100 100">
+                                            <defs>
+                                                <radialGradient id="diyoClay" cx="50%" cy="50%" r="50%">
+                                                    <stop offset="0%" stop-color="#CD853F" />
+                                                    <stop offset="70%" stop-color="#8B4513" />
+                                                    <stop offset="100%" stop-color="#5C2E0B" />
+                                                </radialGradient>
+                                                <filter id="flameGlow" x="-50%" y="-50%" width="200%" height="200%">
+                                                    <feGaussianBlur stdDeviation="6" result="blur" />
+                                                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                                </filter>
+                                            </defs>
+                                            
+                                            <!-- Diyo Body (Clay Bowl) -->
+                                            <path d="M 10,50 C 10,75 30,90 50,90 C 70,90 90,75 90,50 C 90,45 80,45 75,48 C 65,55 55,58 50,58 C 45,58 35,55 25,48 C 20,45 10,45 10,50 Z" fill="url(#diyoClay)" filter="drop-shadow(0px 4px 6px rgba(0,0,0,0.5))" />
+                                            <!-- Oil / Ghee pool inside -->
+                                            <ellipse cx="50" cy="52" rx="28" ry="12" fill="#d4af37" opacity="0.7" />
+                                            <!-- Cotton wick -->
+                                            <line x1="50" y1="52" x2="50" y2="35" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+                                            <line x1="50" y1="52" x2="50" y2="35" stroke="#333" stroke-width="2" stroke-linecap="round" />
+                                            
+                                            <!-- Glowing Fire Flame (Toggled by JS class .lit) -->
+                                            <g class="flame-group" id="flame-1">
+                                                <path d="M 50,35 Q 40,20 50,5 Q 60,20 50,35 Z" fill="#FF8C00" filter="url(#flameGlow)" />
+                                                <path d="M 50,32 Q 45,22 50,12 Q 55,22 50,32 Z" fill="#FFD700" />
+                                                <circle cx="50" cy="30" r="3" fill="#FFF" opacity="0.8" />
+                                            </g>
+                                        </svg>
+                                        <span class="diyo-lbl">दियो १</span>
+                                    </div>
+
+                                    <div class="diyo-pot" id="diyo-2">
+                                        <svg class="vector-diyo" viewBox="0 0 100 100">
+                                            <path d="M 10,50 C 10,75 30,90 50,90 C 70,90 90,75 90,50 C 90,45 80,45 75,48 C 65,55 55,58 50,58 C 45,58 35,55 25,48 C 20,45 10,45 10,50 Z" fill="url(#diyoClay)" filter="drop-shadow(0px 4px 6px rgba(0,0,0,0.5))" />
+                                            <ellipse cx="50" cy="52" rx="28" ry="12" fill="#d4af37" opacity="0.7" />
+                                            <line x1="50" y1="52" x2="50" y2="35" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+                                            <line x1="50" y1="52" x2="50" y2="35" stroke="#333" stroke-width="2" stroke-linecap="round" />
+                                            <g class="flame-group" id="flame-2">
+                                                <path d="M 50,35 Q 40,20 50,5 Q 60,20 50,35 Z" fill="#FF8C00" filter="url(#flameGlow)" />
+                                                <path d="M 50,32 Q 45,22 50,12 Q 55,22 50,32 Z" fill="#FFD700" />
+                                                <circle cx="50" cy="30" r="3" fill="#FFF" opacity="0.8" />
+                                            </g>
+                                        </svg>
+                                        <span class="diyo-lbl">दियो २</span>
+                                    </div>
+
+                                    <div class="diyo-pot" id="diyo-3">
+                                        <svg class="vector-diyo" viewBox="0 0 100 100">
+                                            <path d="M 10,50 C 10,75 30,90 50,90 C 70,90 90,75 90,50 C 90,45 80,45 75,48 C 65,55 55,58 50,58 C 45,58 35,55 25,48 C 20,45 10,45 10,50 Z" fill="url(#diyoClay)" filter="drop-shadow(0px 4px 6px rgba(0,0,0,0.5))" />
+                                            <ellipse cx="50" cy="52" rx="28" ry="12" fill="#d4af37" opacity="0.7" />
+                                            <line x1="50" y1="52" x2="50" y2="35" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+                                            <line x1="50" y1="52" x2="50" y2="35" stroke="#333" stroke-width="2" stroke-linecap="round" />
+                                            <g class="flame-group" id="flame-3">
+                                                <path d="M 50,35 Q 40,20 50,5 Q 60,20 50,35 Z" fill="#FF8C00" filter="url(#flameGlow)" />
+                                                <path d="M 50,32 Q 45,22 50,12 Q 55,22 50,32 Z" fill="#FFD700" />
+                                                <circle cx="50" cy="30" r="3" fill="#FFF" opacity="0.8" />
+                                            </g>
+                                        </svg>
+                                        <span class="diyo-lbl">दियो ३</span>
+                                    </div>
+
+                                    <div class="diyo-pot" id="diyo-4">
+                                        <svg class="vector-diyo" viewBox="0 0 100 100">
+                                            <path d="M 10,50 C 10,75 30,90 50,90 C 70,90 90,75 90,50 C 90,45 80,45 75,48 C 65,55 55,58 50,58 C 45,58 35,55 25,48 C 20,45 10,45 10,50 Z" fill="url(#diyoClay)" filter="drop-shadow(0px 4px 6px rgba(0,0,0,0.5))" />
+                                            <ellipse cx="50" cy="52" rx="28" ry="12" fill="#d4af37" opacity="0.7" />
+                                            <line x1="50" y1="52" x2="50" y2="35" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+                                            <line x1="50" y1="52" x2="50" y2="35" stroke="#333" stroke-width="2" stroke-linecap="round" />
+                                            <g class="flame-group" id="flame-4">
+                                                <path d="M 50,35 Q 40,20 50,5 Q 60,20 50,35 Z" fill="#FF8C00" filter="url(#flameGlow)" />
+                                                <path d="M 50,32 Q 45,22 50,12 Q 55,22 50,32 Z" fill="#FFD700" />
+                                                <circle cx="50" cy="30" r="3" fill="#FFF" opacity="0.8" />
+                                            </g>
+                                        </svg>
+                                        <span class="diyo-lbl">दियो ४</span>
+                                    </div>
+
+                                    <div class="diyo-pot" id="diyo-5">
+                                        <svg class="vector-diyo" viewBox="0 0 100 100">
+                                            <path d="M 10,50 C 10,75 30,90 50,90 C 70,90 90,75 90,50 C 90,45 80,45 75,48 C 65,55 55,58 50,58 C 45,58 35,55 25,48 C 20,45 10,45 10,50 Z" fill="url(#diyoClay)" filter="drop-shadow(0px 4px 6px rgba(0,0,0,0.5))" />
+                                            <ellipse cx="50" cy="52" rx="28" ry="12" fill="#d4af37" opacity="0.7" />
+                                            <line x1="50" y1="52" x2="50" y2="35" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+                                            <line x1="50" y1="52" x2="50" y2="35" stroke="#333" stroke-width="2" stroke-linecap="round" />
+                                            <g class="flame-group" id="flame-5">
+                                                <path d="M 50,35 Q 40,20 50,5 Q 60,20 50,35 Z" fill="#FF8C00" filter="url(#flameGlow)" />
+                                                <path d="M 50,32 Q 45,22 50,12 Q 55,22 50,32 Z" fill="#FFD700" />
+                                                <circle cx="50" cy="30" r="3" fill="#FFF" opacity="0.8" />
+                                            </g>
+                                        </svg>
+                                        <span class="diyo-lbl">दियो ५</span>
+                                    </div>
+
+                                    <div class="diyo-pot" id="diyo-6">
+                                        <svg class="vector-diyo" viewBox="0 0 100 100">
+                                            <path d="M 10,50 C 10,75 30,90 50,90 C 70,90 90,75 90,50 C 90,45 80,45 75,48 C 65,55 55,58 50,58 C 45,58 35,55 25,48 C 20,45 10,45 10,50 Z" fill="url(#diyoClay)" filter="drop-shadow(0px 4px 6px rgba(0,0,0,0.5))" />
+                                            <ellipse cx="50" cy="52" rx="28" ry="12" fill="#d4af37" opacity="0.7" />
+                                            <line x1="50" y1="52" x2="50" y2="35" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+                                            <line x1="50" y1="52" x2="50" y2="35" stroke="#333" stroke-width="2" stroke-linecap="round" />
+                                            <g class="flame-group" id="flame-6">
+                                                <path d="M 50,35 Q 40,20 50,5 Q 60,20 50,35 Z" fill="#FF8C00" filter="url(#flameGlow)" />
+                                                <path d="M 50,32 Q 45,22 50,12 Q 55,22 50,32 Z" fill="#FFD700" />
+                                                <circle cx="50" cy="30" r="3" fill="#FFF" opacity="0.8" />
+                                            </g>
+                                        </svg>
+                                        <span class="diyo-lbl">दियो ६</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab content 2: Dashain Kite Canvas -->
+                <div class="festival-tab-content" id="tab-dashain">
+                    <div class="festival-focus-grid">
+                        <div class="fest-info-side">
+                            <span class="badge badge-accent">Autumn Victory Festival</span>
+                            <h3>विजयादशमी र चङ्गा <span class="info-title-en">Dashain — Touching the Winds</span></h3>
+                            <p>
+                                Dashain is Nepal's grandest festival, symbolizing the triumph of good over evil. The skies turn into a vibrant canvas speckled with colorful paper kites (*Changga*). Flying a kite represents sending messages of thanks to the gods for the post-monsoon harvest and guiding spirits to the heavens.
+                            </p>
+                            <div class="interactive-instruction-card">
+                                <span class="inst-icon">🪁</span>
+                                <div class="inst-details">
+                                    <h4>आकाशमा चङ्गा उडाउनुहोस् (Fly the Kite)</h4>
+                                    <p>Move your cursor or finger across the blue sky to steer the traditional diamond kite. Watch it dynamically adjust its angles, fighting the Himalayan breeze.</p>
+                                </div>
+                            </div>
+                            <div class="kite-stats">
+                                <div class="stat-box">
+                                    <span class="stat-num" id="kiteWindspeed">12 km/h</span>
+                                    <span class="stat-lbl">Himalayan Breeze</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-num" id="kiteAltitude">45 m</span>
+                                    <span class="stat-lbl">Altitude</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fest-interactive-side sky-ambient-bg">
+                            <div class="dhaka-border-wrap">
+                                <div class="kite-workspace" id="kiteWorkspace">
+                                    <!-- Wind direction indicator -->
+                                    <div class="wind-vane" id="windVane">
+                                        <span class="vane-arrow">&uarr;</span> Wind: N-NE
+                                    </div>
+                                    
+                                    <!-- Interactive Canvas for clouds & thread -->
+                                    <canvas id="kiteCanvas" class="kite-canvas"></canvas>
+                                    
+                                    <!-- Vector Kite (Dom element positioned by JS) -->
+                                    <div class="vector-kite" id="vectorKite">
+                                        <svg viewBox="0 0 100 120" width="70" height="84">
+                                            <!-- Kite Body (Red & Blue traditional design) -->
+                                            <polygon points="50,5 95,50 50,95 5,50" fill="#c1121f" />
+                                            <!-- Cross sections in different color -->
+                                            <polygon points="50,5 50,50 5,50" fill="#1a5b7a" />
+                                            <polygon points="50,50 95,50 50,95" fill="#1a5b7a" />
+                                            
+                                            <!-- Bamboo Spines -->
+                                            <line x1="50" y1="5" x2="50" y2="95" stroke="#d4af37" stroke-width="2.5" />
+                                            <!-- Curved cross spine -->
+                                            <path d="M 5,50 Q 50,15 95,50" fill="none" stroke="#d4af37" stroke-width="2.5" />
+                                            
+                                            <!-- Small ribbon streamers on the ears -->
+                                            <polygon points="5,50 0,55 5,60" fill="#e5a93b" />
+                                            <polygon points="95,50 100,55 95,60" fill="#e5a93b" />
+                                            
+                                            <!-- Tail tassel (Dhaka pattern triangular flap) -->
+                                            <polygon points="50,95 38,115 62,115" fill="#e5a93b" />
+                                            <!-- Fluttering tail strings -->
+                                            <path d="M 50,115 Q 48,130 52,145" fill="none" stroke="#c1121f" stroke-width="2" stroke-dasharray="3 3" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Decorative Dhaka Fabric Divider -->
+        <div class="dhaka-divider"></div>
+
+        <!-- Section 4: Traditional Crafts & Dhaka Patterns (कला र कौशल) -->
+        <section id="crafts" class="section crafts-section">
+            <div class="section-container">
+                <div class="section-header text-center">
+                    <span class="section-tag">कला, संस्कृति र गौरव</span>
+                    <h2 class="section-title">नेपाली हस्तकला र चिनारी <span class="title-en">Emblems of Nepalese Craft</span></h2>
+                    <p class="section-desc">Explore the masterfully forged icons that carry the soul, history, and proud resilience of the Nepalese identity.</p>
+                </div>
+
+                <div class="crafts-showcase-grid">
+                    <!-- Craft Item 1: Khukuri -->
+                    <div class="craft-item-panel">
+                        <div class="craft-graphics">
+                            <div class="craft-accent-ring"></div>
+                            <!-- SVG Khukuri Curved Blade -->
+                            <svg class="vector-craft-svg" viewBox="0 0 200 200">
+                                <defs>
+                                    <linearGradient id="bladeSteel" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#fff" />
+                                        <stop offset="50%" stop-color="#aaa" />
+                                        <stop offset="100%" stop-color="#444" />
+                                    </linearGradient>
+                                </defs>
+                                <!-- The sheath (Dap) -->
+                                <path d="M 40,40 C 70,50 110,80 150,130 C 130,130 90,95 50,65 Z" fill="#1c1a17" stroke="#d4af37" stroke-width="2" />
+                                <!-- Brass bindings on sheath -->
+                                <path d="M 80,68 L 90,78 C 88,80 84,76 80,68" fill="#d4af37" />
+                                <path d="M 110,92 L 120,102" stroke="#d4af37" stroke-width="4" />
+                                
+                                <!-- The Curved Khukuri Blade -->
+                                <path d="M 30,70 
+                                         C 55,75 100,90 145,140 
+                                         C 125,125 100,95 65,85 
+                                         C 50,82 40,88 35,88
+                                         Z" fill="url(#bladeSteel)" stroke="#333" stroke-width="1.5" />
+                                <!-- Cho (Traditional notch) at the base of blade -->
+                                <circle cx="37" cy="85" r="3" fill="#111" />
+                                
+                                <!-- The Handle (Traditional rosewood with brass ring) -->
+                                <path d="M 30,70 L 15,65 C 10,60 15,50 20,55 L 35,65 Z" fill="#3e2723" />
+                                <circle cx="30" cy="70" r="4" fill="#d4af37" />
+                            </svg>
+                        </div>
+                        <div class="craft-details">
+                            <h3>खुकुरी <span class="en-lbl">The Khukuri</span></h3>
+                            <p>
+                                The legendary curved steel knife of the Gurkhas. More than a weapon, it is a versatile utility tool, a religious emblem used during Dashain, and a timeless symbol of courage, honor, and sovereign freedom.
+                            </p>
+                            <div class="craft-metadata">
+                                <span><strong>Material:</strong> Forged Carbon Steel, Rosewood</span>
+                                <span><strong>Symbol:</strong> Valor & Sovereignty</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Craft Item 2: Dhaka Topi -->
+                    <div class="craft-item-panel">
+                        <div class="craft-graphics">
+                            <div class="craft-accent-ring"></div>
+                            <!-- Dhaka Topi Graphic -->
+                            <svg class="vector-craft-svg" viewBox="0 0 200 200">
+                                <!-- Dhaka Topi Cap Shape -->
+                                <path d="M 40,140 L 50,75 L 100,60 L 150,75 L 160,140 Z" fill="#c1121f" />
+                                <!-- Slanted Top fold -->
+                                <path d="M 50,75 C 80,68 120,68 150,75 L 100,90 Z" fill="#9b111e" />
+                                
+                                <!-- Dhaka geometric print lines (SVG repeating pattern overlay simulated) -->
+                                <!-- We draw triangles and diamonds -->
+                                <polygon points="60,130 70,110 80,130" fill="#d4af37" />
+                                <polygon points="80,130 90,110 100,130" fill="#1a5b7a" />
+                                <polygon points="100,130 110,110 120,130" fill="#d4af37" />
+                                <polygon points="120,130 130,110 140,130" fill="#1a5b7a" />
+                                
+                                <polygon points="55,100 65,85 75,100" fill="#0f8a5f" />
+                                <polygon points="75,100 85,85 95,100" fill="#d4af37" />
+                                <polygon points="95,100 105,85 115,100" fill="#0f8a5f" />
+                                <polygon points="115,100 125,85 135,100" fill="#d4af37" />
+                                
+                                <polygon points="70,110 80,130 90,110" fill="#0f8a5f" />
+                                <polygon points="110,110 120,130 130,110" fill="#c1121f" />
+                                
+                                <!-- Rim border -->
+                                <rect x="38" y="133" width="124" height="8" fill="#111" rx="2" />
+                                <line x1="38" y1="133" x2="162" y2="133" stroke="#d4af37" stroke-width="1.5" />
+                            </svg>
+                        </div>
+                        <div class="craft-details">
+                            <h3>ढाका टोपी <span class="en-lbl">Dhaka Topi</span></h3>
+                            <p>
+                                The traditional brimless cap, woven hand-loom with raw cotton in intricate, colorful geometric patterns. It represents the towering snow-capped peaks of the Himalayas, worn proudly during formal ceremonies to declare national identity.
+                            </p>
+                            <div class="craft-metadata">
+                                <span><strong>Material:</strong> Hand-loomed Dhaka Cotton Fabric</span>
+                                <span><strong>Symbol:</strong> Himalayan Dignity & Unity</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-dhaka-pattern"></div>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <span class="logo-symbol">ॐ</span>
+                    <div>
+                        <span class="logo-nep">नेपालीपन</span>
+                        <span class="logo-eng">NEPALIPAN</span>
+                    </div>
+                </div>
+                <p class="footer-tagline">संस्कृति नै हाम्रो सम्पत्ति हो | Keeping the eternal rhythm of Nepal alive in digital strings.</p>
+            </div>
+            
+            <div class="footer-links-group">
+                <div class="footer-col">
+                    <h4>अनुभवहरू (Explore)</h4>
+                    <a href="#heritage">धरोहर (Landmarks)</a>
+                    <a href="#sanctum">ध्यान साधना (Sound Sanctum)</a>
+                    <a href="#festivals">चाडपर्व (Festivals)</a>
+                    <a href="#crafts">हस्तकला (Heritage Crafts)</a>
+                </div>
+                <div class="footer-col">
+                    <h4>नेपाली चिनारी</h4>
+                    <a href="#">सगरमाथा (Mt. Everest)</a>
+                    <a href="#">बुद्धको आँखा (Wisdom Eyes)</a>
+                    <a href="#">ढाका ढाँचा (Dhaka Geometries)</a>
+                    <a href="#">ललितपुर हस्तकला (Lalitpur Art)</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 नेपालीपन | Designed with deep reverence for Nepali traditions. HTML, CSS, and Web Audio API synthesized.</p>
+        </div>
+    </footer>
+
+    <!-- GreenSock GSAP CDNs for elite creative scroll animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Main Javascript File -->
+    <script src="app.js"></script>
+</body>
+</html>
